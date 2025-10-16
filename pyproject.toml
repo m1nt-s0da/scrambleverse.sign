@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scrambleverse-sign"
+version = "1.0.0"
+dependencies = [
+    "cffi~=2.0.0",
+    "pycparser~=2.23",
+    "pynacl~=1.6.0",
+]
+requires-python = ">= 3.13"
+
+[tool.setuptools.packages.find]
+exclude = ["tests"]
