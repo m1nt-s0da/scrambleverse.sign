@@ -11,7 +11,7 @@ __all__ = []
 
 class SignFileArgs(Protocol):
     input_files: list[str]
-    key: TextIO
+    keyfile: TextIO
     output: TextIO
 
 
@@ -39,7 +39,7 @@ def sign_file(parser: ArgumentParser):
     )
 
     def handle(args: SignFileArgs):
-        private_key = PrivateKey.load_and_decrypt_sync(args.key)
+        private_key = PrivateKey.load_and_decrypt_sync(args.keyfile)
         signification = Signatures(private_key.generate_public_key())
 
         for file in args.input_files:
