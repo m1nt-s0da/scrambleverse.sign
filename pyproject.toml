@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "scrambleverse-sign"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
     "cffi~=2.0.0",
     "pycparser~=2.23",
