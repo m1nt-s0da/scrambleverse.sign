@@ -1,4 +1,4 @@
-from typing import TypedDict, TYPE_CHECKING, IO
+from typing import TypedDict, TYPE_CHECKING, IO, Union
 from functools import cache
 import base64
 import json
@@ -43,12 +43,15 @@ class Signatures[T: SignerInfo = SignerInfo]:
         )
         self._signature_map.cache_clear()
 
-    def verify(self, sha256: "_Hash") -> bool:
-        hex_digest = sha256.hexdigest()
-        if hex_digest not in self._signature_map():
-            return False
+    def verify(self, sha256: Union["_Hash", str]) -> bool:
+        if isinstance(sha256, str):
+            hex_digest = sha256
+        else:
+            hex_digest = sha256.hexdigest()
+            if hex_digest not in self._signature_map():
+                return False
         signature = base64.b64decode(self._signature_map()[hex_digest])
-        return self.__public_key.verify_digest(sha256.digest(), signature)
+        return self.__public_key.verify_digest(bytes.fromhex(hex_digest), signature)
 
     def to_dict(self) -> SignaturesDict:
         return {
