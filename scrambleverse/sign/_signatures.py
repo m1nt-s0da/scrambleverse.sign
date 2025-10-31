@@ -48,8 +48,8 @@ class Signatures[T: SignerInfo = SignerInfo]:
             hex_digest = sha256
         else:
             hex_digest = sha256.hexdigest()
-            if hex_digest not in self._signature_map():
-                return False
+        if hex_digest not in self._signature_map():
+            return False
         signature = base64.b64decode(self._signature_map()[hex_digest])
         return self.__public_key.verify_digest(bytes.fromhex(hex_digest), signature)
 

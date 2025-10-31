@@ -8,9 +8,12 @@ pynacl = "*"
 
 [dev-packages]
 build = "*"
+pytest-asyncio = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.13"
 
 [scripts]
 build = "python -m build"
+test = "pytest -v --tb=short"
